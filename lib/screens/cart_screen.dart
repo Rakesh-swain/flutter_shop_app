@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import '../providers/cart.dart';
 import 'package:provider/provider.dart';
+import '../widgets/cart_item.dart';
 
 class CartScreen extends StatelessWidget {
   @override
@@ -24,7 +25,7 @@ class CartScreen extends StatelessWidget {
                   Spacer(),
                   Chip(
                       label: Text(
-                        '${cart.totalAmount}',
+                        '₹${cart.totalAmount}',
                         style: TextStyle(
                             color: Theme.of(context)
                                 .primaryTextTheme
@@ -40,6 +41,15 @@ class CartScreen extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(height: 10),
+          Expanded(
+              child: ListView.builder(
+                  itemCount: cart.items.length,
+                  itemBuilder: (ctx, i) => CartItems(
+                      cart.items.values.toList()[i].id,
+                      cart.items.values.toList()[i].title,
+                      cart.items.values.toList()[i].quantity,
+                      cart.items.values.toList()[i].price))),
         ],
       ),
     );
