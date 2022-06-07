@@ -68,8 +68,19 @@ class ProductsProvider with ChangeNotifier {
   //   notifyListeners();
   // }
 
+  Future<void> fetchAndSetProduct() async {
+    final url = Uri.parse(
+        'https://shop-app-a56be-default-rtdb.asia-southeast1.firebasedatabase.app/products.json');
+    try {
+      final response = await http.get(url);
+      print(json.decode(response.body));
+    } catch (error) {
+      throw (error);
+    }
+  }
+
   Future<void> addProduct(Product product) async {
-    var url = Uri.parse(
+    final url = Uri.parse(
         'https://shop-app-a56be-default-rtdb.asia-southeast1.firebasedatabase.app/products.json');
     try {
       final response = await http.post(

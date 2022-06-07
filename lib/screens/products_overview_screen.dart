@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../providers/cart.dart';
 import '../widgets/products_grid.dart';
 import '../widgets/badge.dart';
+import '../providers/products_provider.dart';
 
 enum FilterOptions {
   Favorites,
@@ -20,6 +21,31 @@ class ProductsOverviewScreen extends StatefulWidget {
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   var _showOnlyFavorites = false;
+  var _isInit = true;
+
+  @override
+  void initState() {
+    // first methhod
+    //Provider.of<ProductsProvider>(context, listen: false).fetchAndSetProduct();
+    //Second method
+    // Future.delayed(Duration.zero).then((_) {
+    //   Provider.of<ProductsProvider>(context, listen: false)
+    //       .fetchAndSetProduct();
+    // });
+    super.initState();
+  }
+
+  //Third method
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      Provider.of<ProductsProvider>(context, listen: false)
+          .fetchAndSetProduct();
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     // final productsContainer =  Provider.of<ProductsProvider>(context, listen: false);
