@@ -40,6 +40,9 @@ class ProductsProvider with ChangeNotifier {
     // ),
   ];
   // var _showFavoritesOnly = false;
+  final String? authToken;
+  ProductsProvider(this.authToken);
+
   List<Product> get items {
     // if (_showFavoritesOnly) {
     //   return _items.where((prodItem) => prodItem.isFavorite).toList();
@@ -71,7 +74,7 @@ class ProductsProvider with ChangeNotifier {
 
   Future<void> fetchAndSetProduct() async {
     final url = Uri.parse(
-        'https://shop-app-a56be-default-rtdb.asia-southeast1.firebasedatabase.app/products.json');
+        'https://shop-app-a56be-default-rtdb.asia-southeast1.firebasedatabase.app/products.json?auth=$authToken');
     try {
       final response = await http.get(url);
       final extractData = json.decode(response.body) as Map<String, dynamic>;
