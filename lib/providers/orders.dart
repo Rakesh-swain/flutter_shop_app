@@ -55,7 +55,7 @@ class Orders with ChangeNotifier {
 
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
     final url = Uri.parse(
-        'https://shop-app-a56be-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json');
+        'https://shop-app-a56be-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json?auth=$authToken');
     final timestamp = DateTime.now();
     final response = await http.post(url,
         body: json.encode({

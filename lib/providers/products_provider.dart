@@ -41,7 +41,8 @@ class ProductsProvider with ChangeNotifier {
   ];
   // var _showFavoritesOnly = false;
   final String? authToken;
-  ProductsProvider(this.authToken);
+  final String userId;
+  ProductsProvider(this.authToken, this.userId);
 
   List<Product> get items {
     // if (_showFavoritesOnly) {
@@ -73,7 +74,7 @@ class ProductsProvider with ChangeNotifier {
   // }
 
   Future<void> fetchAndSetProduct() async {
-    final url = Uri.parse(
+    var url = Uri.parse(
         'https://shop-app-a56be-default-rtdb.asia-southeast1.firebasedatabase.app/products.json?auth=$authToken');
     try {
       final response = await http.get(url);
@@ -81,6 +82,10 @@ class ProductsProvider with ChangeNotifier {
       if (extractData == "") {
         return;
       }
+      url = Uri.parse(
+          'https://shop-app-a56be-default-rtdb.asia-southeast1.firebasedatabase.app/userFavorites/$userId.json?auth=$authToken');
+      final favoriteResponse = await http.get(url);
+      final favoriteData = json.decode(favoriteResponse.body);
       final List<Product> loadedProducts = [];
       extractData.forEach((prodId, prodData) {
         loadedProducts.add(Product(
@@ -89,7 +94,8 @@ class ProductsProvider with ChangeNotifier {
             description: prodData['description'],
             price: prodData['price'],
             imageurl: prodData['imageurl'],
-            isFavorite: prodData['isFavorite']));
+            isFavorite:
+                favoriteData == null ? false : favoriteData[prodId] ?? false));
       });
       _items = loadedProducts;
       notifyListeners();
@@ -109,7 +115,6 @@ class ProductsProvider with ChangeNotifier {
           'description': product.description,
           'imageurl': product.imageurl,
           'price': product.price,
-          'isFavorite': product.isFavorite,
         }),
       );
       final newProduct = Product(
