@@ -41,7 +41,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
             if (dataSnapshot.error != null) {
               //Do error handling stuff
               return Center(
-                child: Text('An error occurred'),
+                child: Text(
+                  'No Orders Found',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
               );
             } else {
               return Consumer<Orders>(
