@@ -31,7 +31,7 @@ class ProductItem extends StatelessWidget {
               child: FadeInImage(
                 placeholder: AssetImage('assets/images/p1.png'),
                 image: NetworkImage(product.imageurl),
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             )),
         footer: GridTileBar(
@@ -45,10 +45,11 @@ class ProductItem extends StatelessWidget {
               color: Theme.of(context).accentColor,
             ),
           ),
-          backgroundColor: Colors.black87,
+          backgroundColor: Colors.black54,
           title: Text(
             product.title,
             textAlign: TextAlign.center,
+            overflow: TextOverflow.visible,
           ),
           trailing: IconButton(
             icon: Icon(Icons.shopping_cart),
@@ -66,7 +67,7 @@ class ProductItem extends StatelessWidget {
                 ),
               ));
             },
-            color: Theme.of(context).accentColor,
+            color: Color.fromARGB(255, 249, 185, 255),
           ),
         ),
       ),

@@ -18,7 +18,7 @@ class _OrderItemState extends State<OrderItem> {
     return AnimatedContainer(
       duration: Duration(milliseconds: 300),
       height:
-          _expanded ? min(widget.order.products.length * 20.0 + 110, 200) : 90,
+          _expanded ? min(widget.order.products.length * 20.0 + 150, 200) : 95,
       child: Card(
         margin: EdgeInsets.all(10),
         child: Column(
@@ -40,7 +40,7 @@ class _OrderItemState extends State<OrderItem> {
               duration: Duration(milliseconds: 300),
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
               height: _expanded
-                  ? min(widget.order.products.length * 20.0 + 20, 100)
+                  ? min(widget.order.products.length * 20.0 + 50, 100)
                   : 0,
               child: ListView(
                   children: widget.order.products

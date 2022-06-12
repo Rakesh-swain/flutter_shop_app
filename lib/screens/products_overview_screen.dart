@@ -62,6 +62,11 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
       appBar: AppBar(
         title: const Text('My Shop'),
         actions: [
+          IconButton(
+            icon: Icon(Icons.search_rounded),
+            onPressed: null,
+            disabledColor: Colors.white,
+          ),
           PopupMenuButton(
               onSelected: (FilterOptions selectedValue) {
                 setState(() {
